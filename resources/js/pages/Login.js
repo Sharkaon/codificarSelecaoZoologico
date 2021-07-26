@@ -43,8 +43,7 @@ const Login = (props) => {
     let history = useHistory();
 
     useEffect(() => {
-        localStorage.removeItem("@App:usuario");
-        const usuarioArmazenadoString = localStorage.getItem('@App:usuario');
+        const usuarioArmazenadoString = localStorage.getItem("@App:usuario");
         const usuarioArmazenado = JSON.parse(usuarioArmazenadoString);
 
         if (usuarioArmazenado){
@@ -58,6 +57,7 @@ const Login = (props) => {
                 history.push("/inicio");
             }
         }
+        console.log(usuario);
     }, [usuario]);
 
     const changeEmail = (e) => {
@@ -76,6 +76,7 @@ const Login = (props) => {
         }).then((response) => {
             if(response.data.length > 0){
                 setUsuario(response.data[0]);
+                localStorage.setItem("@App:usuario", JSON.stringify(response.data[0]));
                 history.push("/inicio");
             }else{
                 setSenha("");

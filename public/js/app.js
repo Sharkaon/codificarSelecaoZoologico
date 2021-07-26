@@ -20934,8 +20934,7 @@ var Login = function Login(props) {
 
   var history = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_6__.useHistory)();
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    localStorage.removeItem("@App:usuario");
-    var usuarioArmazenadoString = localStorage.getItem('@App:usuario');
+    var usuarioArmazenadoString = localStorage.getItem("@App:usuario");
     var usuarioArmazenado = JSON.parse(usuarioArmazenadoString);
 
     if (usuarioArmazenado) {
@@ -20948,6 +20947,8 @@ var Login = function Login(props) {
         history.push("/inicio");
       }
     }
+
+    console.log(usuario);
   }, [usuario]);
 
   var changeEmail = function changeEmail(e) {
@@ -20966,6 +20967,7 @@ var Login = function Login(props) {
     }).then(function (response) {
       if (response.data.length > 0) {
         setUsuario(response.data[0]);
+        localStorage.setItem("@App:usuario", JSON.stringify(response.data[0]));
         history.push("/inicio");
       } else {
         setSenha("");
@@ -21459,10 +21461,18 @@ var ZeladorCadastro = function ZeladorCadastro() {
     axios.post('/usuarios/cadastrarZelador', {
       email: email,
       senha: senha
-    }).then(function () {
-      setResultado("Certo");
-      setEmail("");
-      setSenha("");
+    }).then(function (response) {
+      console.log(response);
+      console.log(response.data);
+
+      if (response !== null) {
+        setResultado("Certo");
+        setEmail("");
+        setSenha("");
+      } else {
+        setResultado("Erro");
+        console.log(response);
+      }
     })["catch"](function () {
       setResultado("Erro");
     });
