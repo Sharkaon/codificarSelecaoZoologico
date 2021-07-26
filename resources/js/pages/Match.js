@@ -54,8 +54,6 @@ const Match = () => {
     let history = useHistory();
 
     useEffect(() => {
-        console.log("Effect");
-
         if(usuario.ehZelador!=0 && usuario.ehZelador!=1){
             history.push("/login");
         };
@@ -81,30 +79,27 @@ const Match = () => {
     }, []);
 
     const _handleClickAvaliar = (avaliado_id, ehPositiva, key) => {
+        let novosUsuariosAvaliados;
+        
         axios.post('../../../../avaliacoes/criar', {
             avaliado_id: avaliado_id,
             avaliador_id: usuario.usuario_id,
             ehPositiva: ehPositiva
-        }).catch((e) => {
-            console.log(e);
-        })
-
-        let novosUsuariosAvaliados = usuariosAvaliados.slice();
-        novosUsuariosAvaliados.splice(key, 1);
-        setUsuariosAvaliados(novosUsuariosAvaliados);
+        }).then(() => {
+            novosUsuariosAvaliados = usuariosAvaliados.slice();
+            novosUsuariosAvaliados.splice(key, 1);
+            setUsuariosAvaliados(novosUsuariosAvaliados);
+        });
     };
 
     const _handleClickDesativar = (avaliado_id, key) => {
         let novosUsuariosAvaliados;
 
-        axios.delete(`../../../../usuarios/desativar/${avaliado_id}`).then((response) => {
-            console.log(response);
+        axios.delete(`../../../../usuarios/desativar/${avaliado_id}`).then(() => {
             novosUsuariosAvaliados = usuariosAvaliados.slice();
             novosUsuariosAvaliados.splice(key, 1);
             setUsuariosAvaliados(novosUsuariosAvaliados);
-        }).catch((e) => {
-            console.log(e);
-        })
+        });
     };
 
     const _handleClickArrowBack = () => {

@@ -167,21 +167,21 @@ const ZeladorCadastro = () => {
                 />
                 <div>
                     <RadioVerde
-                        checked={tipo==='Animal'}
+                        checked={tipo==="Animal"}
                         onChange={_handleChangeTipo}
                         value="Animal"
-                        inputProps={{ 'aria-label': 'Animal' }}
+                        inputProps={{ "aria-label": "Animal" }}
                         label="Animal"
                     />Animal
                     <RadioVerde
-                        checked={tipo==='Zelador'}
+                        checked={tipo==="Zelador"}
                         onChange={_handleChangeTipo}
                         value="Zelador"
-                        inputProps={{ 'aria-label': 'Zelador' }}
+                        inputProps={{ "aria-label": "Zelador" }}
                         label="Zelador"
                     />Zelador
                 </div>
-                {tipo === 'Animal'?
+                {tipo === "Animal"?
                 <Formulario
                     login
                     procurar
@@ -197,7 +197,7 @@ const ZeladorCadastro = () => {
                     email={email}
                     changeEmail={changeEmail}
                     clickButton={clickCadastrarAnimal}
-                    textoBotao={'Cadastrar'}
+                    textoBotao={"Cadastrar"}
                     imagem={imagem}
                     changeImagem={changeImagem}
                     apagarImagem={apagarImagem}
@@ -210,7 +210,7 @@ const ZeladorCadastro = () => {
                     senha={senha}
                     changeSenha={changeSenha}
                     clickButton={clickCadastrarZelador}
-                    textoBotao={'Cadastrar'}
+                    textoBotao={"Cadastrar"}
                 />}
                 <Grid item onClick={_handleClickArrowBack}>
                     <ArrowBack/>Voltar para o menu.

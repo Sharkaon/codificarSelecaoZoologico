@@ -31,8 +31,9 @@ const useStyles = makeStyles({
 const Login = (props) => {
     const classes = useStyles();
 
-    const [email, setEmail] = useState('');
-    const [senha, setSenha] = useState('');
+    const [email, setEmail] = useState("");
+    const [senha, setSenha] = useState("");
+    const [resultado, setResultado] = useState("");
     const [usuario, setUsuario] = useContext(Contexto);
 
     let history = useHistory();
@@ -63,11 +64,16 @@ const Login = (props) => {
     const clickLogin = () => {
         axios.get(`/usuarios/autenticar/${email}/${senha}/${props.ehZelador}`).then((response) => {
             setUsuario(response.data[0]);
-            localStorage.setItem('@App:usuario', JSON.stringify(response.data[0]));
+            localStorage.setItem("@App:usuario", JSON.stringify(response.data[0]));
         }).catch(() => {
-            console.log("Erro");
+            setSenha("");
+            setResultado("Erro");
         });
-    }
+    };
+
+    const _handleCloseSnackbar = () => {
+        setResultado("");
+    };
 
     return (
         <Grid container className={classes.pagina} spacing={5}>
@@ -88,15 +94,27 @@ const Login = (props) => {
                     clickButton={clickLogin}
                     email={email}
                     senha={senha}
-                    textoBotao={'Entrar'}
+                    textoBotao={"Entrar"}
                 />
             </Grid>
             <Grid item>
                 {props.ehZelador?
-                <Typography onClick={() => {history.push('/login');}}>Clique aqui para entrar como animal</Typography>
+                <Typography onClick={() => {history.push("/login");}}>Clique aqui para entrar como animal</Typography>
                 :
-                <Typography onClick={() => {history.push('/loginZelador');}}>Clique aqui para entrar como Zelador</Typography>
+                <Typography onClick={() => {history.push("/loginZelador");}}>Clique aqui para entrar como Zelador</Typography>
                 }
+            </Grid>
+            <Grid item>
+                <Snackbar
+                    open={resultado==="Erro"}
+                    autoHideDuration={6000}
+                    onClose={_handleCloseSnackbar}
+                    action={
+                        <React.Fragment>
+                            Erro ao autenticar. Senha ou E-mail estão errados.
+                        </React.Fragment>
+                    }
+                />
             </Grid>
         </Grid>
     );

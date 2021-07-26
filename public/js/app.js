@@ -20714,7 +20714,7 @@ var Inicio = function Inicio() {
   };
 
   var zerarUsuario = function zerarUsuario() {
-    localStorage.removeItem('@App:usuario');
+    localStorage.removeItem("@App:usuario");
     setUsuario(null);
     history.push("/login");
   };
@@ -20762,7 +20762,7 @@ var Inicio = function Inicio() {
         ala: ala,
         changeAla: changeAla,
         clickButton: clickProcurar,
-        textoBotao: 'Procurar'
+        textoBotao: "Procurar"
       }) : null]
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_components_Footer__WEBPACK_IMPORTED_MODULE_4__.default, {})]
   });
@@ -20911,15 +20911,20 @@ var useStyles = (0,_material_ui_core__WEBPACK_IMPORTED_MODULE_5__.default)({
 var Login = function Login(props) {
   var classes = useStyles();
 
-  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(""),
       _useState2 = _slicedToArray(_useState, 2),
       email = _useState2[0],
       setEmail = _useState2[1];
 
-  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(""),
       _useState4 = _slicedToArray(_useState3, 2),
       senha = _useState4[0],
       setSenha = _useState4[1];
+
+  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(""),
+      _useState6 = _slicedToArray(_useState5, 2),
+      resultado = _useState6[0],
+      setResultado = _useState6[1];
 
   var _useContext = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(_Contexto__WEBPACK_IMPORTED_MODULE_2__.default),
       _useContext2 = _slicedToArray(_useContext, 2),
@@ -20952,10 +20957,15 @@ var Login = function Login(props) {
   var clickLogin = function clickLogin() {
     axios.get("/usuarios/autenticar/".concat(email, "/").concat(senha, "/").concat(props.ehZelador)).then(function (response) {
       setUsuario(response.data[0]);
-      localStorage.setItem('@App:usuario', JSON.stringify(response.data[0]));
+      localStorage.setItem("@App:usuario", JSON.stringify(response.data[0]));
     })["catch"](function () {
-      console.log("Erro");
+      setSenha("");
+      setResultado("Erro");
     });
+  };
+
+  var _handleCloseSnackbar = function _handleCloseSnackbar() {
+    setResultado("");
   };
 
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(_material_ui_core__WEBPACK_IMPORTED_MODULE_7__.default, {
@@ -20985,20 +20995,30 @@ var Login = function Login(props) {
         clickButton: clickLogin,
         email: email,
         senha: senha,
-        textoBotao: 'Entrar'
+        textoBotao: "Entrar"
       })]
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_material_ui_core__WEBPACK_IMPORTED_MODULE_7__.default, {
       item: true,
       children: props.ehZelador ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_material_ui_core__WEBPACK_IMPORTED_MODULE_9__.default, {
         onClick: function onClick() {
-          history.push('/login');
+          history.push("/login");
         },
         children: "Clique aqui para entrar como animal"
       }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_material_ui_core__WEBPACK_IMPORTED_MODULE_9__.default, {
         onClick: function onClick() {
-          history.push('/loginZelador');
+          history.push("/loginZelador");
         },
         children: "Clique aqui para entrar como Zelador"
+      })
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_material_ui_core__WEBPACK_IMPORTED_MODULE_7__.default, {
+      item: true,
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(Snackbar, {
+        open: resultado === "Erro",
+        autoHideDuration: 6000,
+        onClose: _handleCloseSnackbar,
+        action: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
+          children: "Erro ao autenticar. Senha ou E-mail est\xE3o errados."
+        })
       })
     })]
   });
@@ -21104,8 +21124,6 @@ var Match = function Match() {
 
   var history = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_7__.useHistory)();
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    console.log("Effect");
-
     if (usuario.ehZelador != 0 && usuario.ehZelador != 1) {
       history.push("/login");
     }
@@ -21134,27 +21152,24 @@ var Match = function Match() {
   }, []);
 
   var _handleClickAvaliar = function _handleClickAvaliar(avaliado_id, ehPositiva, key) {
+    var novosUsuariosAvaliados;
     axios.post('../../../../avaliacoes/criar', {
       avaliado_id: avaliado_id,
       avaliador_id: usuario.usuario_id,
       ehPositiva: ehPositiva
-    })["catch"](function (e) {
-      console.log(e);
+    }).then(function () {
+      novosUsuariosAvaliados = usuariosAvaliados.slice();
+      novosUsuariosAvaliados.splice(key, 1);
+      setUsuariosAvaliados(novosUsuariosAvaliados);
     });
-    var novosUsuariosAvaliados = usuariosAvaliados.slice();
-    novosUsuariosAvaliados.splice(key, 1);
-    setUsuariosAvaliados(novosUsuariosAvaliados);
   };
 
   var _handleClickDesativar = function _handleClickDesativar(avaliado_id, key) {
     var novosUsuariosAvaliados;
-    axios["delete"]("../../../../usuarios/desativar/".concat(avaliado_id)).then(function (response) {
-      console.log(response);
+    axios["delete"]("../../../../usuarios/desativar/".concat(avaliado_id)).then(function () {
       novosUsuariosAvaliados = usuariosAvaliados.slice();
       novosUsuariosAvaliados.splice(key, 1);
       setUsuariosAvaliados(novosUsuariosAvaliados);
-    })["catch"](function (e) {
-      console.log(e);
     });
   };
 
@@ -21473,23 +21488,23 @@ var ZeladorCadastro = function ZeladorCadastro() {
         })
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_components_RadioVerde__WEBPACK_IMPORTED_MODULE_2__.default, {
-          checked: tipo === 'Animal',
+          checked: tipo === "Animal",
           onChange: _handleChangeTipo,
           value: "Animal",
           inputProps: {
-            'aria-label': 'Animal'
+            "aria-label": "Animal"
           },
           label: "Animal"
         }), "Animal", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_components_RadioVerde__WEBPACK_IMPORTED_MODULE_2__.default, {
-          checked: tipo === 'Zelador',
+          checked: tipo === "Zelador",
           onChange: _handleChangeTipo,
           value: "Zelador",
           inputProps: {
-            'aria-label': 'Zelador'
+            "aria-label": "Zelador"
           },
           label: "Zelador"
         }), "Zelador"]
-      }), tipo === 'Animal' ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_components_Formulario__WEBPACK_IMPORTED_MODULE_1__.default, {
+      }), tipo === "Animal" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_components_Formulario__WEBPACK_IMPORTED_MODULE_1__.default, {
         login: true,
         procurar: true,
         cadastrar: true,
@@ -21504,7 +21519,7 @@ var ZeladorCadastro = function ZeladorCadastro() {
         email: email,
         changeEmail: changeEmail,
         clickButton: clickCadastrarAnimal,
-        textoBotao: 'Cadastrar',
+        textoBotao: "Cadastrar",
         imagem: imagem,
         changeImagem: changeImagem,
         apagarImagem: apagarImagem
@@ -21515,7 +21530,7 @@ var ZeladorCadastro = function ZeladorCadastro() {
         senha: senha,
         changeSenha: changeSenha,
         clickButton: clickCadastrarZelador,
-        textoBotao: 'Cadastrar'
+        textoBotao: "Cadastrar"
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(_material_ui_core__WEBPACK_IMPORTED_MODULE_9__.default, {
         item: true,
         onClick: _handleClickArrowBack,

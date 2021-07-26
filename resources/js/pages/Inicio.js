@@ -81,7 +81,7 @@ const Inicio = () => {
     };
 
     const zerarUsuario = () => {
-        localStorage.removeItem('@App:usuario');
+        localStorage.removeItem("@App:usuario");
         setUsuario(null);
         history.push("/login");
     };
@@ -126,7 +126,7 @@ const Inicio = () => {
                     ala={ala}
                     changeAla={changeAla}
                     clickButton={clickProcurar}
-                    textoBotao={'Procurar'}
+                    textoBotao={"Procurar"}
                 />: null
                 }
             </Grid>
