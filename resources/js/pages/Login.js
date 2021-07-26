@@ -57,7 +57,6 @@ const Login = (props) => {
                 history.push("/inicio");
             }
         }
-        console.log(usuario);
     }, [usuario]);
 
     const changeEmail = (e) => {

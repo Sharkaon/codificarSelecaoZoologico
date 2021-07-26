@@ -25,15 +25,19 @@ class UsuarioController extends Controller
         $ala = $request->ala;
         $imagem = $request->imagem;
 
-        $resultado = DB::table('usuario')->insert([
-            'email' => $email,
-            'senha' => $senha,
-            'nomeCientifico' => $nomeCientifico,
-            'apelido' => $apelido,
-            'ala' => $ala,
-            'ehZelador' => False,
-            'imagem' => $imagem
-        ]);
+        if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            $resultado = DB::table('usuario')->insert([
+                'email' => $email,
+                'senha' => $senha,
+                'nomeCientifico' => $nomeCientifico,
+                'apelido' => $apelido,
+                'ala' => $ala,
+                'ehZelador' => False,
+                'imagem' => $imagem
+            ]);
+        }else{
+            $resultado = null;
+        }
 
         return $resultado;
     }
@@ -42,11 +46,15 @@ class UsuarioController extends Controller
         $email = $request->email;
         $senha = md5($request->senha);
 
-        $resultado = DB::table('usuario')->insert([
-            'email' => $email,
-            'senha' => $senha,
-            'ehZelador' => True
-        ]);
+        if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            $resultado = DB::table('usuario')->insert([
+                'email' => $email,
+                'senha' => $senha,
+                'ehZelador' => True
+            ]);
+        } else {
+            $resultado = null;
+        }
 
         return $resultado;
     }

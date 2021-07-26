@@ -20947,8 +20947,6 @@ var Login = function Login(props) {
         history.push("/inicio");
       }
     }
-
-    console.log(usuario);
   }, [usuario]);
 
   var changeEmail = function changeEmail(e) {
@@ -21441,14 +21439,19 @@ var ZeladorCadastro = function ZeladorCadastro() {
         apelido: apelido,
         ala: ala,
         imagem: response.data.link
-      }).then(function () {
-        setResultado("Certo");
-        setEmail("");
-        setSenha("");
-        setNome("");
-        setApelido("");
-        setAla("");
-        setImagem("");
+      }).then(function (response) {
+        if (response.data === 1) {
+          setResultado("Certo");
+          setEmail("");
+          setSenha("");
+          setNome("");
+          setApelido("");
+          setAla("");
+          setImagem("");
+        } else {
+          setResultado("Erro");
+          setEmail("");
+        }
       })["catch"](function () {
         setResultado("Erro");
       });
@@ -21465,13 +21468,13 @@ var ZeladorCadastro = function ZeladorCadastro() {
       console.log(response);
       console.log(response.data);
 
-      if (response !== null) {
+      if (response.data === 1) {
         setResultado("Certo");
         setEmail("");
         setSenha("");
       } else {
         setResultado("Erro");
-        console.log(response);
+        setEmail("");
       }
     })["catch"](function () {
       setResultado("Erro");

@@ -102,14 +102,19 @@ const ZeladorCadastro = () => {
                 apelido: apelido,
                 ala: ala,
                 imagem: response.data.link
-            }).then(() => {
-                setResultado("Certo");
-                setEmail("");
-                setSenha("");
-                setNome("");
-                setApelido("");
-                setAla("");
-                setImagem("");
+            }).then((response) => {
+                if(response.data === 1){
+                    setResultado("Certo");
+                    setEmail("");
+                    setSenha("");
+                    setNome("");
+                    setApelido("");
+                    setAla("");
+                    setImagem("");
+                }else{
+                    setResultado("Erro");
+                    setEmail("")
+                }
             }).catch(() => {
                 setResultado("Erro");
             });
@@ -122,10 +127,17 @@ const ZeladorCadastro = () => {
         axios.post('/usuarios/cadastrarZelador', {
             email: email,
             senha: senha
-        }).then(() => {
-            setResultado("Certo");
-            setEmail("");
-            setSenha("");
+        }).then((response) => {
+            console.log(response);
+            console.log(response.data);
+            if(response.data === 1){
+                setResultado("Certo");
+                setEmail("");
+                setSenha("");
+            }else{
+                setResultado("Erro");
+                setEmail("");
+            }
         }).catch(() => {
             setResultado("Erro");
         });
