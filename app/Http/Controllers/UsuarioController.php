@@ -51,8 +51,10 @@ class UsuarioController extends Controller
         return $resultado;
     }
 
-    public function autenticarUsuario($email, $senha, $tipo){
-        $senha = md5($senha);
+    public function autenticarUsuario(Request $request){
+        $email = $request->email;
+        $senha = md5($request->senha);
+        $tipo = $request->tipo;
 
         $resultado = DB::table('usuario')
             ->where('email', $email)

@@ -1,7 +1,11 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Typography } from '@material-ui/core';
-import { makeStyles, Grid } from '@material-ui/core';
+import {
+    makeStyles,
+    Grid,
+    Snackbar
+} from '@material-ui/core';
 import Formulario from '../components/Formulario';
 import Contexto from '../Contexto';
 import { createTheme, ThemeProvider } from '@material-ui/core/styles';
@@ -39,6 +43,7 @@ const Login = (props) => {
     let history = useHistory();
 
     useEffect(() => {
+        localStorage.removeItem("@App:usuario");
         const usuarioArmazenadoString = localStorage.getItem('@App:usuario');
         const usuarioArmazenado = JSON.parse(usuarioArmazenadoString);
 
@@ -48,8 +53,10 @@ const Login = (props) => {
     }, []);
 
     useEffect(() => {
-        if(usuario){
-            history.push("/inicio");
+        if(usuario!==null){
+            if(usuario.email!==undefined){
+                history.push("/inicio");
+            }
         }
     }, [usuario]);
 
@@ -62,9 +69,18 @@ const Login = (props) => {
     };
 
     const clickLogin = () => {
-        axios.get(`/usuarios/autenticar/${email}/${senha}/${props.ehZelador}`).then((response) => {
-            setUsuario(response.data[0]);
-            localStorage.setItem("@App:usuario", JSON.stringify(response.data[0]));
+        axios.post("/usuarios/autenticar", {
+            email: email,
+            senha: senha,
+            tipo: props.ehZelador
+        }).then((response) => {
+            if(response.data.length > 0){
+                setUsuario(response.data[0]);
+                history.push("/inicio");
+            }else{
+                setSenha("");
+                setResultado("Erro");
+            }
         }).catch(() => {
             setSenha("");
             setResultado("Erro");
@@ -111,7 +127,7 @@ const Login = (props) => {
                     onClose={_handleCloseSnackbar}
                     action={
                         <React.Fragment>
-                            Erro ao autenticar. Senha ou E-mail estão errados.
+                            Erro ao autenticar. E-mail ou senha incorreto.
                         </React.Fragment>
                     }
                 />

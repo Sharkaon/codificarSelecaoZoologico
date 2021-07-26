@@ -20861,6 +20861,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @material-ui/core */ "./node_modules/@material-ui/core/esm/Typography/Typography.js");
 /* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @material-ui/core */ "./node_modules/@material-ui/core/esm/styles/makeStyles.js");
 /* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @material-ui/core */ "./node_modules/@material-ui/core/esm/Grid/Grid.js");
+/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @material-ui/core */ "./node_modules/@material-ui/core/esm/Snackbar/Snackbar.js");
 /* harmony import */ var _components_Formulario__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/Formulario */ "./resources/js/components/Formulario.js");
 /* harmony import */ var _Contexto__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../Contexto */ "./resources/js/Contexto.js");
 /* harmony import */ var _material_ui_core_styles__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @material-ui/core/styles */ "./node_modules/@material-ui/core/esm/styles/createTheme.js");
@@ -20933,6 +20934,7 @@ var Login = function Login(props) {
 
   var history = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_6__.useHistory)();
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    localStorage.removeItem("@App:usuario");
     var usuarioArmazenadoString = localStorage.getItem('@App:usuario');
     var usuarioArmazenado = JSON.parse(usuarioArmazenadoString);
 
@@ -20941,8 +20943,10 @@ var Login = function Login(props) {
     }
   }, []);
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    if (usuario) {
-      history.push("/inicio");
+    if (usuario !== null) {
+      if (usuario.email !== undefined) {
+        history.push("/inicio");
+      }
     }
   }, [usuario]);
 
@@ -20955,9 +20959,18 @@ var Login = function Login(props) {
   };
 
   var clickLogin = function clickLogin() {
-    axios.get("/usuarios/autenticar/".concat(email, "/").concat(senha, "/").concat(props.ehZelador)).then(function (response) {
-      setUsuario(response.data[0]);
-      localStorage.setItem("@App:usuario", JSON.stringify(response.data[0]));
+    axios.post("/usuarios/autenticar", {
+      email: email,
+      senha: senha,
+      tipo: props.ehZelador
+    }).then(function (response) {
+      if (response.data.length > 0) {
+        setUsuario(response.data[0]);
+        history.push("/inicio");
+      } else {
+        setSenha("");
+        setResultado("Erro");
+      }
     })["catch"](function () {
       setSenha("");
       setResultado("Erro");
@@ -21012,12 +21025,12 @@ var Login = function Login(props) {
       })
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_material_ui_core__WEBPACK_IMPORTED_MODULE_7__.default, {
       item: true,
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(Snackbar, {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_material_ui_core__WEBPACK_IMPORTED_MODULE_10__.default, {
         open: resultado === "Erro",
         autoHideDuration: 6000,
         onClose: _handleCloseSnackbar,
         action: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
-          children: "Erro ao autenticar. Senha ou E-mail est\xE3o errados."
+          children: "Erro ao autenticar. E-mail ou senha incorreto."
         })
       })
     })]
