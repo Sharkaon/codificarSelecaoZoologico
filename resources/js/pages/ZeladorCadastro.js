@@ -9,6 +9,7 @@ import {
     Grid,
     Snackbar
 } from '@material-ui/core';
+import { ArrowBack } from '@material-ui/icons';
 import Formulario from '../components/Formulario';
 import RadioVerde from '../components/RadioVerde';
 import Header from '../components/Header';
@@ -136,6 +137,10 @@ const ZeladorCadastro = () => {
         history.push("/login");
     };
 
+    const _handleClickArrowBack = () => {
+        history.push("/inicio");
+    };
+
     return (
         <div>
             <Header zerarUsuario={zerarUsuario}/>
@@ -207,6 +212,9 @@ const ZeladorCadastro = () => {
                     clickButton={clickCadastrarZelador}
                     textoBotao={'Cadastrar'}
                 />}
+                <Grid item onClick={_handleClickArrowBack}>
+                    <ArrowBack/>Voltar para o menu.
+                </Grid>
             </Grid>
             <Footer/>
         </div>

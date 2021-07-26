@@ -33,7 +33,7 @@ const Router = () => {
                             <Inicio/>
                         </Contexto.Provider>
                     </Route>
-                    <Route path="/zelador">
+                    <Route path="/cadastro">
                         <Contexto.Provider value={contextoState}>
                             <ZeladorCadastro/>
                         </Contexto.Provider>

@@ -57,12 +57,6 @@ class UsuarioController extends Controller
         return $resultado;
     }
 
-    public function deletarUsuario($id){
-        $resultado = DB::table('usuario')->where('usuario_id', $id)->delete();
-
-        return $resultado;
-    }
-
     public function autenticarUsuario($email, $senha, $tipo){
         $senha = md5($senha);
 
@@ -111,23 +105,29 @@ class UsuarioController extends Controller
         return $usuarios;
     }
     
-    public function pegarMatchGet($usuario_id, $nomeCientifico = null, $apelido = null, $ala = null){
+    // public function pegarMatchGet($usuario_id, $nomeCientifico = null, $apelido = null, $ala = null){
 
-        $usuarios = DB::table('usuario')
-            ->whereRaw('usuario_id NOT IN (SELECT avaliado_id FROM zoologico.avaliacao WHERE avaliador_id = ?)', $usuario_id)
-            ->where('ehZelador', 0)
-            ->where('usuario_id', '<>', $usuario_id)
-            ->when($nomeCientifico, function($query, $nomeCientifico) {
-                return $query->where('nomeCientifico', 'LIKE', '%'.$nomeCientifico.'%');
-            })
-            ->when($apelido, function($query, $apelido) {
-                return $query->where('apelido', 'LIKE', '%'.$apelido.'%');
-            })
-            ->when($ala, function($query, $ala) {
-                return $query->where('ala', 'LIKE', '%'.$ala.'%');
-            })
-            ->get();
+    //     $usuarios = DB::table('usuario')
+    //         ->whereRaw('usuario_id NOT IN (SELECT avaliado_id FROM zoologico.avaliacao WHERE avaliador_id = ?)', $usuario_id)
+    //         ->where('ehZelador', 0)
+    //         ->where('usuario_id', '<>', $usuario_id)
+    //         ->when($nomeCientifico, function($query, $nomeCientifico) {
+    //             return $query->where('nomeCientifico', 'LIKE', '%'.$nomeCientifico.'%');
+    //         })
+    //         ->when($apelido, function($query, $apelido) {
+    //             return $query->where('apelido', 'LIKE', '%'.$apelido.'%');
+    //         })
+    //         ->when($ala, function($query, $ala) {
+    //             return $query->where('ala', 'LIKE', '%'.$ala.'%');
+    //         })
+    //         ->get();
 
-        return $usuarios;
+    //     return $usuarios;
+    // }
+
+    public function deletarUsuario($avaliado_id){
+        $resultado = DB::table('usuario')->where('usuario_id', $avaliado_id)->delete();
+
+        return $resultado;
     }
 }

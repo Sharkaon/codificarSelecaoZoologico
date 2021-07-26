@@ -1,6 +1,13 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, {
+    useState,
+    useContext,
+    useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import { makeStyles, Grid } from '@material-ui/core';
+import {
+    makeStyles,
+    Grid,
+    Typography
+} from '@material-ui/core';
 import BotaoVerde from '../components/BotaoVerde';
 import Formulario from '../components/Formulario';
 import Header from '../components/Header';
@@ -28,8 +35,13 @@ const Inicio = () => {
     const [usuario, setUsuario] = useContext(Contexto);
 
     useEffect(() => {
-        if(usuario.ehZelador!=0){
+        if(usuario===null){
             history.push("/login");
+        }
+        else{
+            if(usuario.email===undefined){
+                history.push("/login");
+            }
         }
     }, []);
 
@@ -37,6 +49,10 @@ const Inicio = () => {
 
     const _handleClickMatch = () => {
         history.push('/match');
+    };
+
+    const _handleClickCadastrar = () => {
+        history.push('/cadastro');
     };
 
     const _handleClickConfiguracoesBusca = () => {
@@ -74,9 +90,29 @@ const Inicio = () => {
         <div>
             <Header zerarUsuario={zerarUsuario}/>
             <Grid container className={classes.pagina} spacing={1}>
-                <Grid item>
-                    <BotaoVerde onClick={_handleClickMatch} size="large">MATCH!</BotaoVerde>
-                </Grid>
+                {usuario!==null?
+                <>
+                    {usuario.ehZelador==="0"
+                    ? 
+                    <Grid item>
+                        <BotaoVerde onClick={_handleClickMatch} size="large">MATCH!</BotaoVerde>
+                    </Grid>
+                    :
+                    <Grid item>
+                        <BotaoVerde onClick={_handleClickCadastrar} size="large">CADASTRAR!</BotaoVerde>
+                    </Grid>
+                    }
+                    {usuario.ehZelador==="1"
+                    ?
+                        <Grid item>
+                            <Typography>Procure os animais que quer desativar:</Typography>
+                        </Grid>
+                        :
+                        null
+                    }
+                </>
+                : null
+                }
                 <Grid item>
                     <BotaoVerde onClick={_handleClickConfiguracoesBusca}>{textoConfiguracoesBusca}</BotaoVerde>
                 </Grid>

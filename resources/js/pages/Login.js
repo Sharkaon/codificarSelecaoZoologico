@@ -48,12 +48,7 @@ const Login = (props) => {
 
     useEffect(() => {
         if(usuario){
-            if(usuario.ehZelador==="1"){
-                history.push("/zelador");
-            }
-            if(usuario.ehZelador==="0"){
-                history.push("/inicio");
-            }
+            history.push("/inicio");
         }
     }, [usuario]);
 

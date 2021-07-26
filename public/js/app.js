@@ -16210,6 +16210,27 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/@material-ui/icons/esm/Delete.js":
+/*!*******************************************************!*\
+  !*** ./node_modules/@material-ui/icons/esm/Delete.js ***!
+  \*******************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var _utils_createSvgIcon__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./utils/createSvgIcon */ "./node_modules/@material-ui/core/esm/utils/createSvgIcon.js");
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_utils_createSvgIcon__WEBPACK_IMPORTED_MODULE_1__.default)( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("path", {
+  d: "M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"
+}), 'Delete'));
+
+/***/ }),
+
 /***/ "./node_modules/@material-ui/icons/esm/ExitToApp.js":
 /*!**********************************************************!*\
   !*** ./node_modules/@material-ui/icons/esm/ExitToApp.js ***!
@@ -20130,7 +20151,7 @@ var Router = function Router() {
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_pages_Inicio__WEBPACK_IMPORTED_MODULE_4__.default, {})
           })
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_10__.Route, {
-          path: "/zelador",
+          path: "/cadastro",
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_Contexto__WEBPACK_IMPORTED_MODULE_7__.default.Provider, {
             value: contextoState,
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_pages_ZeladorCadastro__WEBPACK_IMPORTED_MODULE_5__.default, {})
@@ -20574,6 +20595,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/esm/react-router.js");
 /* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @material-ui/core */ "./node_modules/@material-ui/core/esm/styles/makeStyles.js");
 /* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @material-ui/core */ "./node_modules/@material-ui/core/esm/Grid/Grid.js");
+/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @material-ui/core */ "./node_modules/@material-ui/core/esm/Typography/Typography.js");
 /* harmony import */ var _components_BotaoVerde__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/BotaoVerde */ "./resources/js/components/BotaoVerde.js");
 /* harmony import */ var _components_Formulario__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/Formulario */ "./resources/js/components/Formulario.js");
 /* harmony import */ var _components_Header__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/Header */ "./resources/js/components/Header.js");
@@ -20591,6 +20613,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
 
 
 
@@ -20646,14 +20669,22 @@ var Inicio = function Inicio() {
       setUsuario = _useContext2[1];
 
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    if (usuario.ehZelador != 0) {
+    if (usuario === null) {
       history.push("/login");
+    } else {
+      if (usuario.email === undefined) {
+        history.push("/login");
+      }
     }
   }, []);
   var history = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_8__.useHistory)();
 
   var _handleClickMatch = function _handleClickMatch() {
     history.push('/match');
+  };
+
+  var _handleClickCadastrar = function _handleClickCadastrar() {
+    history.push('/cadastro');
   };
 
   var _handleClickConfiguracoesBusca = function _handleClickConfiguracoesBusca() {
@@ -20695,14 +20726,28 @@ var Inicio = function Inicio() {
       container: true,
       className: classes.pagina,
       spacing: 1,
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_material_ui_core__WEBPACK_IMPORTED_MODULE_9__.default, {
-        item: true,
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_components_BotaoVerde__WEBPACK_IMPORTED_MODULE_1__.default, {
-          onClick: _handleClickMatch,
-          size: "large",
-          children: "MATCH!"
-        })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_material_ui_core__WEBPACK_IMPORTED_MODULE_9__.default, {
+      children: [usuario !== null ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.Fragment, {
+        children: [usuario.ehZelador === "0" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_material_ui_core__WEBPACK_IMPORTED_MODULE_9__.default, {
+          item: true,
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_components_BotaoVerde__WEBPACK_IMPORTED_MODULE_1__.default, {
+            onClick: _handleClickMatch,
+            size: "large",
+            children: "MATCH!"
+          })
+        }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_material_ui_core__WEBPACK_IMPORTED_MODULE_9__.default, {
+          item: true,
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_components_BotaoVerde__WEBPACK_IMPORTED_MODULE_1__.default, {
+            onClick: _handleClickCadastrar,
+            size: "large",
+            children: "CADASTRAR!"
+          })
+        }), usuario.ehZelador === "1" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_material_ui_core__WEBPACK_IMPORTED_MODULE_9__.default, {
+          item: true,
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_material_ui_core__WEBPACK_IMPORTED_MODULE_10__.default, {
+            children: "Procure os animais que quer desativar:"
+          })
+        }) : null]
+      }) : null, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_material_ui_core__WEBPACK_IMPORTED_MODULE_9__.default, {
         item: true,
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_components_BotaoVerde__WEBPACK_IMPORTED_MODULE_1__.default, {
           onClick: _handleClickConfiguracoesBusca,
@@ -20892,13 +20937,7 @@ var Login = function Login(props) {
   }, []);
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     if (usuario) {
-      if (usuario.ehZelador === "1") {
-        history.push("/zelador");
-      }
-
-      if (usuario.ehZelador === "0") {
-        history.push("/inicio");
-      }
+      history.push("/inicio");
     }
   }, [usuario]);
 
@@ -20992,7 +21031,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @material-ui/core */ "./node_modules/@material-ui/core/esm/Button/Button.js");
 /* harmony import */ var _material_ui_icons__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @material-ui/icons */ "./node_modules/@material-ui/icons/esm/ThumbUp.js");
 /* harmony import */ var _material_ui_icons__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @material-ui/icons */ "./node_modules/@material-ui/icons/esm/ThumbDown.js");
-/* harmony import */ var _material_ui_icons__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @material-ui/icons */ "./node_modules/@material-ui/icons/esm/ArrowBack.js");
+/* harmony import */ var _material_ui_icons__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @material-ui/icons */ "./node_modules/@material-ui/icons/esm/Delete.js");
+/* harmony import */ var _material_ui_icons__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! @material-ui/icons */ "./node_modules/@material-ui/icons/esm/ArrowBack.js");
 /* harmony import */ var _components_BotaoVerde__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/BotaoVerde */ "./resources/js/components/BotaoVerde.js");
 /* harmony import */ var _components_Header__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/Header */ "./resources/js/components/Header.js");
 /* harmony import */ var _components_Footer__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/Footer */ "./resources/js/components/Footer.js");
@@ -21020,6 +21060,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
+
 var useStyles = (0,_material_ui_core__WEBPACK_IMPORTED_MODULE_6__.default)({
   pagina: {
     display: 'flex',
@@ -21030,6 +21071,10 @@ var useStyles = (0,_material_ui_core__WEBPACK_IMPORTED_MODULE_6__.default)({
   },
   botao: {
     width: '50%',
+    borderRadius: '0'
+  },
+  botaoDesativar: {
+    width: '100%',
     borderRadius: '0'
   }
 });
@@ -21061,7 +21106,7 @@ var Match = function Match() {
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     console.log("Effect");
 
-    if (usuario.ehZelador != 0) {
+    if (usuario.ehZelador != 0 && usuario.ehZelador != 1) {
       history.push("/login");
     }
 
@@ -21093,12 +21138,24 @@ var Match = function Match() {
       avaliado_id: avaliado_id,
       avaliador_id: usuario.usuario_id,
       ehPositiva: ehPositiva
-    }).then(function (response) {
-      console.log(response);
+    })["catch"](function (e) {
+      console.log(e);
     });
     var novosUsuariosAvaliados = usuariosAvaliados.slice();
     novosUsuariosAvaliados.splice(key, 1);
     setUsuariosAvaliados(novosUsuariosAvaliados);
+  };
+
+  var _handleClickDesativar = function _handleClickDesativar(avaliado_id, key) {
+    var novosUsuariosAvaliados;
+    axios["delete"]("../../../../usuarios/desativar/".concat(avaliado_id)).then(function (response) {
+      console.log(response);
+      novosUsuariosAvaliados = usuariosAvaliados.slice();
+      novosUsuariosAvaliados.splice(key, 1);
+      setUsuariosAvaliados(novosUsuariosAvaliados);
+    })["catch"](function (e) {
+      console.log(e);
+    });
   };
 
   var _handleClickArrowBack = function _handleClickArrowBack() {
@@ -21143,20 +21200,30 @@ var Match = function Match() {
                 component: "p",
                 children: avaliado.ala
               })]
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_components_BotaoVerde__WEBPACK_IMPORTED_MODULE_1__.default, {
-              onClick: function onClick() {
-                _handleClickAvaliar(avaliado.usuario_id, 1, key);
-              },
-              className: classes.botao,
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_material_ui_icons__WEBPACK_IMPORTED_MODULE_14__.default, {})
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_material_ui_core__WEBPACK_IMPORTED_MODULE_15__.default, {
+            }), usuario.ehZelador === "0" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.Fragment, {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_components_BotaoVerde__WEBPACK_IMPORTED_MODULE_1__.default, {
+                onClick: function onClick() {
+                  _handleClickAvaliar(avaliado.usuario_id, 1, key);
+                },
+                className: classes.botao,
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_material_ui_icons__WEBPACK_IMPORTED_MODULE_14__.default, {})
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_material_ui_core__WEBPACK_IMPORTED_MODULE_15__.default, {
+                variant: "contained",
+                color: "secondary",
+                onClick: function onClick() {
+                  _handleClickAvaliar(avaliado.usuario_id, 0, key);
+                },
+                className: classes.botao,
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_material_ui_icons__WEBPACK_IMPORTED_MODULE_16__.default, {})
+              })]
+            }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_material_ui_core__WEBPACK_IMPORTED_MODULE_15__.default, {
               variant: "contained",
               color: "secondary",
               onClick: function onClick() {
-                _handleClickAvaliar(avaliado.usuario_id, 0, key);
+                _handleClickDesativar(avaliado.usuario_id, key);
               },
-              className: classes.botao,
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_material_ui_icons__WEBPACK_IMPORTED_MODULE_16__.default, {})
+              className: classes.botaoDesativar,
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_material_ui_icons__WEBPACK_IMPORTED_MODULE_17__.default, {})
             })]
           })
         }, key);
@@ -21168,7 +21235,7 @@ var Match = function Match() {
       }) : null, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(_material_ui_core__WEBPACK_IMPORTED_MODULE_8__.default, {
         item: true,
         onClick: _handleClickArrowBack,
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_material_ui_icons__WEBPACK_IMPORTED_MODULE_17__.default, {}), "Voltar para a pesquisa."]
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_material_ui_icons__WEBPACK_IMPORTED_MODULE_18__.default, {}), "Voltar para o menu."]
       })]
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_components_Footer__WEBPACK_IMPORTED_MODULE_3__.default, {})]
   });
@@ -21194,6 +21261,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @material-ui/core */ "./node_modules/@material-ui/core/esm/styles/makeStyles.js");
 /* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @material-ui/core */ "./node_modules/@material-ui/core/esm/Grid/Grid.js");
 /* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @material-ui/core */ "./node_modules/@material-ui/core/esm/Snackbar/Snackbar.js");
+/* harmony import */ var _material_ui_icons__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @material-ui/icons */ "./node_modules/@material-ui/icons/esm/ArrowBack.js");
 /* harmony import */ var _components_Formulario__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/Formulario */ "./resources/js/components/Formulario.js");
 /* harmony import */ var _components_RadioVerde__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/RadioVerde */ "./resources/js/components/RadioVerde.js");
 /* harmony import */ var _components_Header__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/Header */ "./resources/js/components/Header.js");
@@ -21211,6 +21279,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
 
 
 
@@ -21377,6 +21446,10 @@ var ZeladorCadastro = function ZeladorCadastro() {
     history.push("/login");
   };
 
+  var _handleClickArrowBack = function _handleClickArrowBack() {
+    history.push("/inicio");
+  };
+
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_components_Header__WEBPACK_IMPORTED_MODULE_3__.default, {
       zerarUsuario: zerarUsuario
@@ -21443,6 +21516,10 @@ var ZeladorCadastro = function ZeladorCadastro() {
         changeSenha: changeSenha,
         clickButton: clickCadastrarZelador,
         textoBotao: 'Cadastrar'
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(_material_ui_core__WEBPACK_IMPORTED_MODULE_9__.default, {
+        item: true,
+        onClick: _handleClickArrowBack,
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_material_ui_icons__WEBPACK_IMPORTED_MODULE_11__.default, {}), "Voltar para o menu."]
       })]
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_components_Footer__WEBPACK_IMPORTED_MODULE_4__.default, {})]
   });

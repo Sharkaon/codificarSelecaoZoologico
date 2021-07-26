@@ -47,9 +47,9 @@ class AvaliacaoController extends Controller
     //     return $resultado;
     // }
 
-    public function deletarAvaliacao($id){
-        $resultado = DB::table('avaliacao')->where('avaliacao_id', $id)->delete();
+    // public function deletarAvaliacao($id){
+    //     $resultado = DB::table('avaliacao')->where('avaliacao_id', $id)->delete();
 
-        return $resultado;
-    }
+    //     return $resultado;
+    // }
 }

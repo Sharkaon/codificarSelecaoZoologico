@@ -17,7 +17,8 @@ import {
 import {
     ThumbUp,
     ThumbDown,
-    ArrowBack
+    ArrowBack,
+    Delete
 } from '@material-ui/icons';
 import BotaoVerde from '../components/BotaoVerde';
 import Header from '../components/Header';
@@ -35,6 +36,10 @@ const useStyles = makeStyles({
     botao: {
         width: '50%',
         borderRadius: '0'
+    },
+    botaoDesativar: {
+        width: '100%',
+        borderRadius: '0'
     }
 });
 
@@ -51,7 +56,7 @@ const Match = () => {
     useEffect(() => {
         console.log("Effect");
 
-        if(usuario.ehZelador!=0){
+        if(usuario.ehZelador!=0 && usuario.ehZelador!=1){
             history.push("/login");
         };
 
@@ -80,13 +85,26 @@ const Match = () => {
             avaliado_id: avaliado_id,
             avaliador_id: usuario.usuario_id,
             ehPositiva: ehPositiva
-        }).then((response) => {
-            console.log(response);
-        });
+        }).catch((e) => {
+            console.log(e);
+        })
 
         let novosUsuariosAvaliados = usuariosAvaliados.slice();
         novosUsuariosAvaliados.splice(key, 1);
         setUsuariosAvaliados(novosUsuariosAvaliados);
+    };
+
+    const _handleClickDesativar = (avaliado_id, key) => {
+        let novosUsuariosAvaliados;
+
+        axios.delete(`../../../../usuarios/desativar/${avaliado_id}`).then((response) => {
+            console.log(response);
+            novosUsuariosAvaliados = usuariosAvaliados.slice();
+            novosUsuariosAvaliados.splice(key, 1);
+            setUsuariosAvaliados(novosUsuariosAvaliados);
+        }).catch((e) => {
+            console.log(e);
+        })
     };
 
     const _handleClickArrowBack = () => {
@@ -125,19 +143,31 @@ const Match = () => {
                                     {avaliado.ala}
                                 </Typography>
                             </CardContent>
-                            <BotaoVerde
-                                onClick={() => {_handleClickAvaliar(avaliado.usuario_id, 1, key)}}
-                                className={classes.botao}
-                                >
-                                <ThumbUp/>
-                            </BotaoVerde>
+                            {usuario.ehZelador==="0"?
+                            <>
+                                <BotaoVerde
+                                    onClick={() => {_handleClickAvaliar(avaliado.usuario_id, 1, key)}}
+                                    className={classes.botao}
+                                    >
+                                    <ThumbUp/>
+                                </BotaoVerde>
+                                <Button
+                                    variant="contained"
+                                    color="secondary"
+                                    onClick={() => {_handleClickAvaliar(avaliado.usuario_id, 0, key)}}
+                                    className={classes.botao}>
+                                    <ThumbDown/>
+                                </Button>
+                            </>
+                            :
                             <Button
                                 variant="contained"
                                 color="secondary"
-                                onClick={() => {_handleClickAvaliar(avaliado.usuario_id, 0, key)}}
-                                className={classes.botao}>
-                                <ThumbDown/>
+                                onClick={() => {_handleClickDesativar(avaliado.usuario_id, key)}}
+                                className={classes.botaoDesativar}>
+                                <Delete/>
                             </Button>
+                            }
                         </Card>
                     </Grid>)}
                 {usuariosAvaliados.length==0 && carregando==false?
@@ -145,9 +175,9 @@ const Match = () => {
                     <Typography>Você já votou em todos animais! Obrigado pelo seu feedback!</Typography>
                 </Grid>
                 : null}
-                    <Grid item onClick={_handleClickArrowBack}>
-                        <ArrowBack/>Voltar para a pesquisa.
-                    </Grid>
+                <Grid item onClick={_handleClickArrowBack}>
+                    <ArrowBack/>Voltar para o menu.
+                </Grid>
             </Grid>
             <Footer/>
         </div>
