@@ -14,13 +14,8 @@ use App\Http\Controllers;
 |
 */
 
-// Route::get('/', function () {
-//      return view('welcome');
-// });
-
 Route::get('usuarios', [App\Http\Controllers\UsuarioController::class, 'index']);
 Route::get('/usuarios/autenticar/{email}/{senha}/{tipo}', [App\Http\Controllers\UsuarioController::class, 'autenticarUsuario']);
-// Route::get('/usuarios/match/{usuario_id}/{nomeCientifico?}/{apelido?}/{ala?}', [App\Http\Controllers\UsuarioController::class, 'pegarMatchGet']);
 Route::post('/usuarios/match', [App\Http\Controllers\UsuarioController::class, 'pegarMatch']);
 Route::post('/usuarios/cadastrarUsuario', [App\Http\Controllers\UsuarioController::class, 'cadastrarUsuario']);
 Route::post('/usuarios/cadastrarZelador', [App\Http\Controllers\UsuarioController::class, 'cadastrarZelador']);

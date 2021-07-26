@@ -36,20 +36,4 @@ class AvaliacaoController extends Controller
 
         return [$avaliado_id, $avaliador_id, $ehPositiva]   ;
     }
-
-    // public function atualizarAvaliacao($id, $avaliado_id, $avaliador_id, $positiva){        
-    //     $resultado = DB::table('avaliacao')->where('avaliacao_id', $id)->update([
-    //         'avaliado_id' => $avaliado_id,
-    //         'avaliador_id' => $avaliador_id,
-    //         'positiva' => $positiva
-    //     ]);
-
-    //     return $resultado;
-    // }
-
-    // public function deletarAvaliacao($id){
-    //     $resultado = DB::table('avaliacao')->where('avaliacao_id', $id)->delete();
-
-    //     return $resultado;
-    // }
 }

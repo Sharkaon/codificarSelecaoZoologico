@@ -16,12 +16,6 @@ class UsuarioController extends Controller
         
         return $usuarios;
     }
-    
-    public function mostrarUsuario($id){
-        $usuario = DB::table('usuario')->where('usuario_id', $id)->first();
-
-        return $usuario;
-    }
 
     public function cadastrarUsuario(Request $request){
         $email = $request->email;
@@ -104,26 +98,6 @@ class UsuarioController extends Controller
 
         return $usuarios;
     }
-    
-    // public function pegarMatchGet($usuario_id, $nomeCientifico = null, $apelido = null, $ala = null){
-
-    //     $usuarios = DB::table('usuario')
-    //         ->whereRaw('usuario_id NOT IN (SELECT avaliado_id FROM zoologico.avaliacao WHERE avaliador_id = ?)', $usuario_id)
-    //         ->where('ehZelador', 0)
-    //         ->where('usuario_id', '<>', $usuario_id)
-    //         ->when($nomeCientifico, function($query, $nomeCientifico) {
-    //             return $query->where('nomeCientifico', 'LIKE', '%'.$nomeCientifico.'%');
-    //         })
-    //         ->when($apelido, function($query, $apelido) {
-    //             return $query->where('apelido', 'LIKE', '%'.$apelido.'%');
-    //         })
-    //         ->when($ala, function($query, $ala) {
-    //             return $query->where('ala', 'LIKE', '%'.$ala.'%');
-    //         })
-    //         ->get();
-
-    //     return $usuarios;
-    // }
 
     public function deletarUsuario($avaliado_id){
         $resultado = DB::table('usuario')->where('usuario_id', $avaliado_id)->delete();
